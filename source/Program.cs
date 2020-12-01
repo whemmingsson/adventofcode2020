@@ -14,7 +14,7 @@ namespace AdventOfCode2020
             Console.WriteLine("ADVENT OF CODE");
             Console.WriteLine("");
 
-            m_puzzles.Add(new Day0(false));
+            m_puzzles.Add(new Day1(autoSolve: true, time: true));
 
             m_puzzles.ForEach(p => p.Solve());
         }
