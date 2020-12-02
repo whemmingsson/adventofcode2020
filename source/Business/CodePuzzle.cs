@@ -36,7 +36,7 @@ namespace AdventOfCode2020.Business
              _watch = new Stopwatch();
         }
 
-        protected string SolveWithFun(Func<T> solveFunc)
+        protected string SolveWithFun<U>(Func<U> solveFunc)
         {
             if (_time)
             {
