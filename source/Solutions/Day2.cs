@@ -10,7 +10,7 @@ namespace AdventOfCode2020.Solutions
     /// </summary>
     internal class Day2 : CodePuzzleSolution<string>
     {
-        public Day2(bool autoSolve = true, bool time = false) : base(2, new LineParser<string>(), autoSolve, time) {}
+        public Day2(bool autoSolve = true, bool time = false) : base(2, new LineParser<string>(), autoSolve, time) { }
 
         public override void Solve()
         {
@@ -25,49 +25,41 @@ namespace AdventOfCode2020.Solutions
 
         private int SolvePartA()
         {
-            Regex r = new Regex("([\\d]+)-([\\d]+) ([a-z]): ([a-z]+)");
-
-            var count = 0;
-            foreach(var line in Data)
+            return Data.Count(line =>
             {
-               
-                var groups = r.Match(line).Groups;
-
-                var lowerBound = int.Parse(groups[1].Value);
-                var upperBound = int.Parse(groups[2].Value);
-                var searchCharacter = char.Parse(groups[3].Value);
-                var password = groups[4].Value;
-
-                var numMatches = password.Count(pwc => pwc == searchCharacter);
-
-                if (numMatches >= lowerBound && numMatches <= upperBound)
-                    count++;
-            }
-
-            return count;
+                var input = new Input(line);
+                var numMatches = input.Password.Count(pwc => pwc == input.SearchCharacter);
+                return numMatches >= input.Param1 && numMatches <= input.Param2;
+            });
         }
 
         private int SolvePartB()
         {
-            Regex r = new Regex("([\\d]+)-([\\d]+) ([a-z]): ([a-z]+)");
-
-            var count = 0;
-            foreach (var line in Data)
+            return Data.Count(line =>
             {
-                var groups = r.Match(line).Groups;
+                var input = new Input(line);
+                return input.Password[input.Param1 - 1] == input.SearchCharacter ^ input.Password[input.Param2 - 1] == input.SearchCharacter;
+            });
+        }
 
-                var validPos = int.Parse(groups[1].Value) - 1;
-                var valisPos2 = int.Parse(groups[2].Value) - 1;
-                var searchCharacter = char.Parse(groups[3].Value);
-                var password = groups[4].Value;
+        private class Input
+        {
+            private static readonly Regex regex = new Regex("([\\d]+)-([\\d]+) ([a-z]): ([a-z]+)");
 
-                if ((password[validPos] == searchCharacter && password[valisPos2] != searchCharacter) ||
-                    (password[validPos] != searchCharacter && password[valisPos2] == searchCharacter))
-                    count++;
+            public int Param1 { get; set; }
+            public int Param2 { get; set; }
+            public string Password { get; set; }
+            public char SearchCharacter { get; set; }
+            public Input(string line)
+            {
+                var groups = regex.Match(line).Groups;
+
+                Param1 = int.Parse(groups[1].Value);
+                Param2 = int.Parse(groups[2].Value);
+                SearchCharacter = char.Parse(groups[3].Value);
+                Password = groups[4].Value;
             }
-
-            return count;
-        }  
-
+        }
     }
 }
+
