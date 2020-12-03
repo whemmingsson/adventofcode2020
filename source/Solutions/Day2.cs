@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 namespace AdventOfCode2020.Solutions
 {
     /// <summary>
-    /// https://adventofcode.com/2012/day/2
+    /// https://adventofcode.com/2020/day/2
     /// </summary>
     internal class Day2 : CodePuzzleSolution<string>
     {

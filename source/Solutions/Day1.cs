@@ -5,7 +5,7 @@ using System.Linq;
 namespace AdventOfCode2020.Solutions
 {
     /// <summary>
-    /// https://adventofcode.com/2012/day/1
+    /// https://adventofcode.com/2020/day/1
     /// </summary>
     internal class Day1 : CodePuzzleSolution<int>
     {
