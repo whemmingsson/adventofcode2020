@@ -11,14 +11,14 @@ namespace AdventOfCode2020.Business
     {
         private Stopwatch _watch { get; set; }
         private bool _time { get; set; }
-        public bool SolveNow { get; set; }
+        public bool AutoSolve { get; set; }
         public List<T> Data { get; set; }
         public Bitmap ImageData { get; set; }  
         public CodePuzzleSolution(int day, InputParser<T> parser, bool autoSolve = true, bool time = false)
         {
-            SolveNow = autoSolve;
+            AutoSolve = autoSolve;
 
-            if (!SolveNow || day == Constants.CUSTOM_DATA)
+            if (!AutoSolve || day == Constants.CUSTOM_DATA)
                 return;
 
             try 

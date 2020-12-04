@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Solutions
 
         public override void Solve()
         {
-            if (!SolveNow || Data == null || !Data.Any())
+            if (!AutoSolve || Data == null || !Data.Any())
                 return;
 
             Console.WriteLine("# Day 1 #");
