@@ -11,12 +11,13 @@ namespace AdventOfCode2020
 
         static void Main()
         {
-            Console.WriteLine("ADVENT OF CODE");
+            Console.WriteLine("ADVENT OF CODE 2020");
             Console.WriteLine("");
 
             m_puzzles.Add(new Day1(autoSolve: false));
             m_puzzles.Add(new Day2(autoSolve: false));
-            m_puzzles.Add(new Day3(autoSolve: true, time: true));
+            m_puzzles.Add(new Day3(autoSolve: false));
+            m_puzzles.Add(new Day4(autoSolve: true, time: true));
 
             m_puzzles.ForEach(p => p.Solve());
         }
