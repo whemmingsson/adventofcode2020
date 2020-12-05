@@ -50,13 +50,9 @@ namespace AdventOfCode2020.Solutions
 
             SeatIds.Sort();
 
-           for(var i = 0; i < SeatIds.Count -1; i++)
-            {
-                if(SeatIds[i+1] != SeatIds[i] + 1)
-                {
-                    return SeatIds[i + 1] -1;
-                }
-            }
+            for (var i = 0; i < SeatIds.Count - 1; i++)
+                if (SeatIds[i + 1] != SeatIds[i] + 1)
+                    return SeatIds[i + 1] - 1;
 
             return -1;
         }
@@ -92,7 +88,7 @@ namespace AdventOfCode2020.Solutions
                 _lower = l;
                 _upper = u;
             }
-          
+
             private int Length => _upper - _lower;
 
             public void LowerHalf()
