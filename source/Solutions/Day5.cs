@@ -1,5 +1,6 @@
 ﻿using AdventOfCode2020.Business;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode2020.Solutions
@@ -11,6 +12,8 @@ namespace AdventOfCode2020.Solutions
     {
         private const int NUM_ROWS = 128;
         private const int NUM_COLS = 8;
+
+        private List<int> SeatIds;
 
         public Day5(bool autoSolve = true, bool time = false) : base(5, new LineParser<string>(), autoSolve, time) { }
 
@@ -27,7 +30,35 @@ namespace AdventOfCode2020.Solutions
 
         public int SolvePartA()
         {
-            return Data.Max(line => GetRowNumber(line) * NUM_COLS + GetColumnNumber(line));
+            SeatIds = new List<int>();
+
+            // Kind of an ugly hack to get all id's for part two of the puzzle
+            int GetAndAddSeatId(string line)
+            {
+                int id = GetRowNumber(line) * NUM_COLS + GetColumnNumber(line);
+                SeatIds.Add(id);
+                return id;
+            }
+
+            return Data.Max(GetAndAddSeatId);
+        }
+
+        public int SolvePartB()
+        {
+            if (SeatIds == null || SeatIds.Count == 0)
+                return -1;
+
+            SeatIds.Sort();
+
+           for(var i = 0; i < SeatIds.Count -1; i++)
+            {
+                if(SeatIds[i+1] != SeatIds[i] + 1)
+                {
+                    return SeatIds[i + 1] -1;
+                }
+            }
+
+            return -1;
         }
 
         private static int GetRowNumber(string line)
@@ -49,11 +80,6 @@ namespace AdventOfCode2020.Solutions
             }
 
             return range.GetFinalValue();
-        }
-
-        public int SolvePartB()
-        {
-            return -1;
         }
 
         private class Range
