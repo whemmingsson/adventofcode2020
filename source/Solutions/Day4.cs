@@ -59,7 +59,7 @@ namespace AdventOfCode2020.Solutions
                     { "iyr", v => RangeValidator.IsInRange(v, 2010, 2020) },
                     { "eyr", v => RangeValidator.IsInRange(v, 2020, 2030) },
                     { "hgt", v => HeightValidator.IsInRange(v, ("cm", (150, 193)), ("in", (59, 76))) },
-                    { "hcl", v => PatternValidator.IsValid(v, "#[a-f,0-9]{6}") },
+                    { "hcl", v => PatternValidator.IsValid(v, "#[a-f0-9]{6}") },
                     { "ecl", v => EyeColorValidator.IsValid(v) },
                     { "pid", v => PatternValidator.IsValid(v, "[0-9]{9}") },
                     { "cid", v => true }
