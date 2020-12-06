@@ -17,12 +17,12 @@ namespace AdventOfCode2020.Solutions
                 return;
 
             Console.WriteLine("# Day 1 #");
-            Console.WriteLine($"Part A: {SolveWithFun(SolvePartA)}");
-            Console.WriteLine($"Part B: {SolveWithFun(SolvePartB)}");
+            Console.WriteLine($"Part 1: {SolveWithFun(SolvePart1)}");
+            Console.WriteLine($"Part 2: {SolveWithFun(SolvePart2)}");
             Console.WriteLine("");
         }
 
-        private int SolvePartA()
+        private int SolvePart1()
         {
             for(var i = 0; i < Data.Count; i++)
             {
@@ -38,7 +38,7 @@ namespace AdventOfCode2020.Solutions
             return -1;
         }
 
-        private int SolvePartB()
+        private int SolvePart2()
         {
             for (var i = 0; i < Data.Count; i++)
             {

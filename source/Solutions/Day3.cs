@@ -27,12 +27,12 @@ namespace AdventOfCode2020.Solutions
             _slopeX = 3;
             _slopeY = 1;
 
-            Console.WriteLine($"Part A: {SolveWithFun(SolvePartA)}");
-            Console.WriteLine($"Part B: {SolveWithFun(SolvePartB)}");
+            Console.WriteLine($"Part 1: {SolveWithFun(SolvePart1)}");
+            Console.WriteLine($"Part 2: {SolveWithFun(SolvePart2)}");
             Console.WriteLine("");
         }
 
-        private int SolvePartA()
+        private int SolvePart1()
         {
             var patternLength = Data[0].Trim().Length;   
             var numTrees = 0;
@@ -49,14 +49,14 @@ namespace AdventOfCode2020.Solutions
             return numTrees;
         }
 
-        private int SolvePartB()
+        private int SolvePart2()
         {
             var treeProduct = 1;
             foreach(var slope in new List<(int, int)>() { (1, 1), (3, 1), (5, 1), (7, 1), (1, 2) })
             {
                 _slopeX = slope.Item1;
                 _slopeY = slope.Item2;
-                treeProduct *= SolvePartA();
+                treeProduct *= SolvePart1();
             }
             return treeProduct;
         }  

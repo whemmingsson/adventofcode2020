@@ -24,12 +24,12 @@ namespace AdventOfCode2020.Solutions
 
             Console.WriteLine("--- Day 4: Passport Processing ---");
 
-            Console.WriteLine($"Part A: {SolveWithFun(SolvePartA)}");
-            Console.WriteLine($"Part B: {SolveWithFun(SolvePartB)}");
+            Console.WriteLine($"Part 1: {SolveWithFun(SolvePart1)}");
+            Console.WriteLine($"Part 2: {SolveWithFun(SolvePart2)}");
             Console.WriteLine("");
         }
 
-        private int SolvePartA()
+        private int SolvePart1()
         {
             var count = 0;
             foreach(var line in Data)
@@ -41,7 +41,7 @@ namespace AdventOfCode2020.Solutions
             return count;
         }
 
-        private int SolvePartB()
+        private int SolvePart2()
         {
             var validator = new PassportValidator();
             return Data.Count(l => validator.IsValid(l));

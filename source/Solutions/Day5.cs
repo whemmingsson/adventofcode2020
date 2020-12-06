@@ -23,12 +23,12 @@ namespace AdventOfCode2020.Solutions
                 return;
 
             Console.WriteLine("--- Day 5: Binary Boarding ---");
-            Console.WriteLine($"Part A: {SolvePartA()}");
-            Console.WriteLine($"Part B: {SolvePartB()}");
+            Console.WriteLine($"Part 1: {SolvePart1()}");
+            Console.WriteLine($"Part 2: {SolvePart2()}");
             Console.WriteLine("");
         }
 
-        public int SolvePartA()
+        public int SolvePart1()
         {
             SeatIds = new List<int>();
 
@@ -43,7 +43,7 @@ namespace AdventOfCode2020.Solutions
             return Data.Max(GetAndAddSeatId);
         }
 
-        public int SolvePartB()
+        public int SolvePart2()
         {
             if (SeatIds == null || SeatIds.Count == 0)
                 return -1;
