@@ -17,7 +17,7 @@ namespace AdventOfCode2020.Solutions
             if (!AutoSolve || Data == null || !Data.Any())
                 return;
 
-            Console.WriteLine("# Day 6 #");
+            Console.WriteLine("--- Day 6: Custom Customs ---");
             Console.WriteLine($"Part A: {SolvePartA()}");
             Console.WriteLine($"Part B: {SolvePartB()}");
             Console.WriteLine("");
@@ -27,16 +27,16 @@ namespace AdventOfCode2020.Solutions
         {
            var sum = 0;
            var group = new List<char>();
-           foreach(var line in Data)
+            for (int i = 0; i < Data.Count; i++)
             {
-                if (string.IsNullOrWhiteSpace(line)) {
+                group.AddRange(Data[i].Trim());
 
+                if (IsGroupFinished(i))
+                {
                     sum += group.Distinct().Count();
                     group = new List<char>();
-                    continue;
+                    i++;
                 }
-
-                group.AddRange(line.Trim());
             }
 
             return sum;
@@ -47,21 +47,26 @@ namespace AdventOfCode2020.Solutions
             var sum = 0;
             var group = new List<char>();
             var personsInGroup = 0;
-            foreach (var line in Data)
+            for (int i = 0; i < Data.Count; i++)
             {
-                if (string.IsNullOrWhiteSpace(line))
-                {             
+                group.AddRange(Data[i].Trim());
+                personsInGroup++;
+
+                if (IsGroupFinished(i))
+                {
                     sum += group.Distinct().Count(a => group.Count(b => a == b) == personsInGroup);
                     personsInGroup = 0;
                     group = new List<char>();
-                    continue;
+                    i++;
                 }
-
-                group.AddRange(line.Trim());
-                personsInGroup++;
             }
 
             return sum;
+        }
+
+        private bool IsGroupFinished(int i)
+        {
+            return (i + 1 < Data.Count && string.IsNullOrWhiteSpace(Data[i + 1])) || i == Data.Count - 1;
         }
     }
 }
