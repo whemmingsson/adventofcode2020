@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace AdventOfCode2020.Solutions
 {
@@ -10,9 +11,7 @@ namespace AdventOfCode2020.Solutions
     /// </summary>
     internal class Day7 : CodePuzzleSolution<string>
     {
-        private readonly List<Bag> bags = new List<Bag>();
-        int counter = 0;
-        private Dictionary<string, Bag> bagDict;
+        private Dictionary<string, List<string>> bagDict;
 
         private const string BAG_COLOR = "shiny gold";
 
@@ -24,113 +23,72 @@ namespace AdventOfCode2020.Solutions
                 return;
 
             Console.WriteLine("Day 7");
-            Console.WriteLine($"Part 1: {SolvePart1()}");
-            Console.WriteLine($"Part 2: {SolvePart2()}");
+            Console.WriteLine($"Part 1: {SolveWithFun(SolvePart1)}");
+            Console.WriteLine($"Part 2: {SolveWithFun(SolvePart2)}");
             Console.WriteLine("");
         }
 
         public int SolvePart1()
         {
             var sum = 0;
-            bagDict = new Dictionary<string, Bag>();
+            bagDict = new Dictionary<string, List<string>>();
+
+            var r = new Regex("([\\d])+ ([\\w ]+)");
 
             foreach (var line in Data)
             {
-                var parts = line.Split("bags contain");
+                var trimmedLine = line.Trim();
+                var parts = trimmedLine.Split(" bags contain ");
 
-                var color = parts[0].Replace("bags", "").Trim();
+                var color = parts[0];
 
-                if (color == "other")
+                var bagList = GetBagList(color);
+
+                if (trimmedLine.Contains("no other bags"))
                     continue;
-
-                var bag = GetBag(color);
-
-                var contains = ParseLine(parts).Split(",");
+             
+                var contains = Regex.Replace(parts[1], " bags?\\.?", "").Split(", ");
 
                 foreach (var subBag in contains)
                 {
-                   
-                    var firstSpace = subBag.Trim().IndexOf(" ");
-                    //var count = int.Parse(subBag.Trim().Substring(0, firstSpace));
-                    var subBagColor = subBag.Trim()[firstSpace..].Trim();
-
-                    if (subBagColor == "other")
-                        continue;
-
-                    var bagBag = GetBag(subBagColor);
-                    bag.AddBag(bagBag);
-                }
-
-                if(!bagDict.ContainsKey(color))
-                {
-                    bagDict.Add(color, bag);
-                    bags.Add(bag);
-                }
-             
+                    var groups = r.Match(subBag).Groups;
+                    var count = int.Parse(groups[1].Value);
+                    var subBagColor = groups[2].Value;
+                    bagList.Add(subBagColor);
+                
+                }    
             }
 
-            foreach (var b in bags)
+            foreach (var color in bagDict.Keys)
             {
-                if (CanContainsSantasBag(b))
-                    sum++;
+                if (CanContainSantasBag(color))
+                    sum++;               
             }
 
             return sum;
         }
 
-        private static string ParseLine(string[] parts)
-        {
-            return parts[1].Trim().Replace("bags", "").Replace("bag", "").Replace(".", "").Trim();
+        public List<string> GetBagList(string color)
+        {         
+            if (bagDict.ContainsKey(color))
+                return bagDict[color];
+
+            List<string> bagList = new List<string>();
+
+            bagDict.Add(color, bagList);
+
+            return bagList;
         }
-
-        public Bag GetBag(string color)
+     
+        public bool CanContainSantasBag(string color)
         {
-            var bag = bags.FirstOrDefault(b => b.Color.Equals(color));
-
-             if (bag != null)
-                 return bag;
-
-            bag = FindBag(color, bags);
-
-            if (bag != null)
-                return bag;
-
-            // New bag
-            bag = new Bag() { Color = color };
-
-            return bag;
-        }
-
-        public Bag FindBag(string color, List<Bag> bags)
-        {
-            foreach (var b in bags)
+            foreach (var bagColor in bagDict[color])
             {
-                if (b.Color.Equals(color))
-                    return b;
-            }
-
-            foreach (var b in bags)
-            {
-                if (b.Bags.Count > 0)
-                    return FindBag(color, b.Bags);
-            }
-
-            return null;
-        }
-
-        public bool CanContainsSantasBag(Bag bag)
-        {
-            foreach (var b in bag.Bags)
-            {
-                if (b.Color == BAG_COLOR)
-                {
+                if (bagColor.Equals(BAG_COLOR))
                     return true;
-                }
 
-                if (b.Bags.Count > 0)
-                {
-                    return CanContainsSantasBag(b);
-                }
+                if (CanContainSantasBag(bagColor))
+                    return true;
             }
 
             return false;
@@ -147,26 +105,5 @@ namespace AdventOfCode2020.Solutions
 
             return sum;
         }
-
-        public class Bag
-        {
-            public Bag()
-            {
-                Bags = new List<Bag>();
-            }
-
-            public string Color { get; set; }
-            public List<Bag> Bags { get; set; }
-
-            public void AddBag(Bag bag)
-            {
-                if (!Bags.Any(b => b.Color == bag.Color))
-                {
-                    Bags.Add(bag);
-                }
-            }
-        }
-
-
-    }
+   }
 }
