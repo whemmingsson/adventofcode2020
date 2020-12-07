@@ -52,7 +52,7 @@ namespace AdventOfCode2020.Solutions
                 var trimmedLine = line.Trim();
                 var parts = trimmedLine.Split(" bags contain ");
 
-                var bagList = GetBagList(parts[0]);
+                var bagList = GetOrCreateBagList(parts[0]);
 
                 if (trimmedLine.Contains("no other bags"))
                     continue;
@@ -65,16 +65,12 @@ namespace AdventOfCode2020.Solutions
             }
         }
 
-        private List<(int, string)> GetBagList(string color)
+        private List<(int, string)> GetOrCreateBagList(string color)
         {
-            if (bagDict.ContainsKey(color))
-                return bagDict[color];
+            if(!bagDict.ContainsKey(color))
+                bagDict.Add(color, new List<(int, string)>());
 
-            var bagList = new List<(int, string)>();
-
-            bagDict.Add(color, bagList);
-
-            return bagList;
+            return bagDict[color];
         }
 
         private bool CanContainSantasBag(string color)
