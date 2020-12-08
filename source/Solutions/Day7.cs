@@ -22,7 +22,6 @@ namespace AdventOfCode2020.Solutions
             if (!AutoSolve || Data == null || !Data.Any())
                 return;
 
-
             Console.WriteLine("--- Day 7: Handy Haversacks ---");
             Console.WriteLine($"Part 1: {SolveWithFun(SolvePart1)}");
             Console.WriteLine($"Part 2: {SolveWithFun(SolvePart2)}");
