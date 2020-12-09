@@ -1,5 +1,4 @@
 ﻿using AdventOfCode2020.Business;
-using AdventOfCode2020.Business.Day8;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +11,7 @@ namespace AdventOfCode2020.Solutions
     internal class Day9 : CodePuzzleSolution<long>
     {
         private const int PREAMBLE_LENGTH = 25;
-
-        private HashSet<long> sums = new HashSet<long>();
+        private readonly HashSet<long> sums = new HashSet<long>();
 
         public Day9(bool autoSolve = true, bool time = false) : base(9, new LineParser<long>(), autoSolve, time) { }
 
@@ -48,21 +46,35 @@ namespace AdventOfCode2020.Solutions
             {
                 for (var j = i + 1; j < PREAMBLE_LENGTH + startingIndex; j++)
                 {
-                    long sum = Data[i] + Data[j];
-                    if (!sums.Contains(sum))
-                        sums.Add(sum);
+                    if (!sums.Contains(Data[i] + Data[j]))
+                        sums.Add(Data[i] + Data[j]);
                 }
             }
         }
 
-        public int SolvePart2()
+        public long SolvePart2()
         {
             var target = SolvePart1();
 
+            for (var i = 0; i < Data.Count; i++)
+            {
+                long sum = Data[i];
+                for (var j = i + 1; j < Data.Count; j++)
+                {
+                    sum += Data[j];
 
+                    if (sum > target)
+                        break;
+
+                    if (sum == target)
+                    {
+                        var range = Data.GetRange(i, j - i);
+                        return range.Min() + range.Max();
+                    }                  
+                }
+            }
 
             return -1;
-
         }
     }
 }
