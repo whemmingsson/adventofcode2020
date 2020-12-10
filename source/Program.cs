@@ -22,7 +22,8 @@ namespace AdventOfCode2020
             m_puzzles.Add(new Day6(autoSolve: false));
             m_puzzles.Add(new Day7(autoSolve: false));
             m_puzzles.Add(new Day8(autoSolve: false));
-            m_puzzles.Add(new Day9(autoSolve: true, time: true));
+            m_puzzles.Add(new Day9(autoSolve: false));
+            m_puzzles.Add(new Day10(autoSolve: true, time: true));
 
             m_puzzles.ForEach(p => p.Solve());
         }
