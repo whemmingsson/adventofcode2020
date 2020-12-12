@@ -26,7 +26,7 @@ namespace AdventOfCode2020.Solutions
 
         public int SolvePart1()
         {
-            ferry = new Ferry();
+            ferry = new Ferry(1);
 
             var instructions = Data.Select(line => ((Direction)(line.Substring(0, 1)[0]), int.Parse(line.Substring(1))));
 
@@ -40,7 +40,16 @@ namespace AdventOfCode2020.Solutions
 
         public int SolvePart2()
         {
-            return -1;
+            ferry = new Ferry(2);
+
+            var instructions = Data.Select(line => ((Direction)(line.Substring(0, 1)[0]), int.Parse(line.Substring(1))));
+
+            foreach (var ins in instructions)
+            {
+                ferry.Move(ins);
+            }
+
+            return ferry.GetTravelDistance();
         }
     }
 }
