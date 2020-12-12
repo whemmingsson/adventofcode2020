@@ -10,7 +10,6 @@ namespace AdventOfCode2020.Solutions
     /// </summary>
     internal class Day10 : CodePuzzleSolution<long>
     {
-
         public Day10(bool autoSolve = true, bool time = false) : base(10, new LineParser<long>(), autoSolve, time) { }
 
         public override void Solve()
@@ -28,7 +27,9 @@ namespace AdventOfCode2020.Solutions
         {
 
             var oneJoltDifference = 1;
+            var twoJoltDifference = 0; // Used for part two
             var threeJoltDifference = 1;
+
 
             var adapterListOrdered = Data.OrderBy(v => v).ToList();
 
@@ -38,6 +39,8 @@ namespace AdventOfCode2020.Solutions
 
                 if (difference == 1)
                     oneJoltDifference++;
+                else if (difference == 2)
+                    twoJoltDifference++;
                 else if (difference == 3)
                     threeJoltDifference++;
             }
@@ -46,10 +49,8 @@ namespace AdventOfCode2020.Solutions
         }
 
    
-
         public long SolvePart2()
         {
-
             return -1;
         }
     }
