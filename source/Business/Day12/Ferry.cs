@@ -23,6 +23,13 @@ namespace AdventOfCode2020.Business.Day12
 
             public int X { get; set; }
             public int Y { get; set; }
+
+            public Position Rotate(int degrees)
+            {
+                double radians = degrees * Math.PI / 180;
+                return new Position(Convert.ToInt32(X * Math.Cos(radians) - Y * Math.Sin(radians)), 
+                                    Convert.ToInt32(X * Math.Sin(radians) + Y * Math.Cos(radians)));
+            }
         }
 
         public Direction CurrentDirection { get; set; }
@@ -30,60 +37,59 @@ namespace AdventOfCode2020.Business.Day12
 
         public Position Waypoint { get; set; }
 
-        public Ferry(int part)
+        public Ferry(bool useWaypoint)
         {
-            this.part = part;
             CurrentDirection = Direction.East;
             CurrentPosition = new Position(0, 0);
 
-            if (part == 2)
+            if (useWaypoint)
                 Waypoint = new Position(10, -1);
         }
 
         internal void Move((Direction, int) ins)
         {
-            bool part2 = part == 2;
+            bool hasWaypoint = Waypoint != null;
 
             switch (ins.Item1)
             {
                 case Direction.East:
-                    if (part2)
+                    if (hasWaypoint)
                         Waypoint.X += ins.Item2;
                     else
                         CurrentPosition.X += ins.Item2;
                     break;
                 case Direction.West:
-                    if (part2)
+                    if (hasWaypoint)
                         Waypoint.X -= ins.Item2;
                     else
                         CurrentPosition.X -= ins.Item2;
                     break;
                 case Direction.North:
-                    if (part2)
+                    if (hasWaypoint)
                         Waypoint.Y -= ins.Item2;
                     else
                         CurrentPosition.Y -= ins.Item2;
                     break;
                 case Direction.South:
-                    if (part2)
+                    if (hasWaypoint)
                         Waypoint.Y += ins.Item2;
                     else
                         CurrentPosition.Y += ins.Item2;
                     break;
                 case Direction.Left:
-                    if (part2)
-                        RotateWaypoint(Direction.Left, ins.Item2);
+                    if (hasWaypoint)
+                        RotateWaypoint(ins.Item2 * -1);
                     else
                         Rotate(Direction.Left, ins.Item2);
                     break;
                 case Direction.Right:
-                    if (part2)
-                        RotateWaypoint(Direction.Right, ins.Item2);
+                    if (hasWaypoint)
+                        RotateWaypoint(ins.Item2);
                     else
                         Rotate(Direction.Right, ins.Item2);
                     break;
                 case Direction.Forward:
-                    if (part2)
+                    if (hasWaypoint)
                         MoveShipAndWaypoint(ins.Item2);
                     else
                         Move((CurrentDirection, ins.Item2));
@@ -93,21 +99,13 @@ namespace AdventOfCode2020.Business.Day12
 
         private void MoveShipAndWaypoint(int reps)
         {
-            bool part2 = part == 2;
-
-            if (!part2 || Waypoint == null)
+            if (Waypoint == null)
                 throw new Exception();
-
-            var deltaX = Waypoint.X - CurrentPosition.X;
-            var deltaY = Waypoint.Y - CurrentPosition.Y;
 
             for (var i = 0; i < reps; i++)
             {
-                CurrentPosition.X += deltaX;
-                CurrentPosition.Y += deltaY;
-
-                Waypoint.X += deltaX;
-                Waypoint.Y += deltaY;
+                CurrentPosition.X += Waypoint.X;
+                CurrentPosition.Y += Waypoint.Y;
             }                      
         }
 
@@ -122,20 +120,9 @@ namespace AdventOfCode2020.Business.Day12
             }
         }
 
-        private void RotateWaypoint(Direction direction, int degrees)
+        private void RotateWaypoint(int degrees)
         {
-            if (direction == Direction.Left)
-                degrees *= -1;
-
-            double radians = degrees * Math.PI / 180;
-
-            var wpXRelative = Waypoint.X - CurrentPosition.X;
-            var wpYRelative = Waypoint.Y - CurrentPosition.Y;
-
-            var wpXNew = Convert.ToInt32(wpXRelative * Math.Cos(radians) - wpYRelative * Math.Sin(radians));
-            var wpYNew = Convert.ToInt32(wpXRelative * Math.Sin(radians) + wpYRelative * Math.Cos(radians));
-
-            Waypoint = new Position(wpXNew + CurrentPosition.X, wpYNew + CurrentPosition.Y);
+            Waypoint = Waypoint.Rotate(degrees);
         }
 
         private Direction Next(Direction d)

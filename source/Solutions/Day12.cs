@@ -26,30 +26,31 @@ namespace AdventOfCode2020.Solutions
 
         public int SolvePart1()
         {
-            ferry = new Ferry(1);
+            ferry = new Ferry(false);
 
-            var instructions = Data.Select(line => ((Direction)(line.Substring(0, 1)[0]), int.Parse(line.Substring(1))));
-
-            foreach(var ins in instructions)
-            {
-                ferry.Move(ins);
-            }
-
-            return ferry.GetTravelDistance();   
-        }
-
-        public int SolvePart2()
-        {
-            ferry = new Ferry(2);
-
-            var instructions = Data.Select(line => ((Direction)(line.Substring(0, 1)[0]), int.Parse(line.Substring(1))));
-
-            foreach (var ins in instructions)
+            foreach (var ins in ParseData())
             {
                 ferry.Move(ins);
             }
 
             return ferry.GetTravelDistance();
+        }
+
+        public int SolvePart2()
+        {
+            ferry = new Ferry(true);
+
+            foreach (var ins in ParseData())
+            {
+                ferry.Move(ins);
+            }
+
+            return ferry.GetTravelDistance();
+        }
+
+        private IEnumerable<(Direction, int)> ParseData()
+        {
+            return Data.Select(line => ((Direction)(line.Substring(0, 1)[0]), int.Parse(line.Substring(1))));
         }
     }
 }
