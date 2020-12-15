@@ -4,8 +4,6 @@ namespace AdventOfCode2020.Business.Day12
 {
     public class Ferry
     {
-        private readonly int part;
-
         public enum Direction
         {
             North = 78, South = 83, East = 69, West = 87,
