@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace AdventOfCode2020.Business
@@ -14,16 +15,16 @@ namespace AdventOfCode2020.Business
         public bool AutoSolve { get; set; }
         public List<T> Data { get; set; }
         public Bitmap ImageData { get; set; }  
-        public CodePuzzleSolution(int day, InputParser<T> parser, bool autoSolve = true, bool time = false)
+        public CodePuzzleSolution(InputParser<T> parser, bool autoSolve = true, bool time = false)
         {
             AutoSolve = autoSolve;
 
-            if (!AutoSolve || day == Constants.CUSTOM_DATA)
+            if (!AutoSolve)
                 return;
 
             try 
             { 
-                Data = InputReader.GetInputFromFile(day, parser).ToList();
+                Data = InputReader.GetInputFromFile(GetDay(), parser).ToList();
             }
             catch (Exception e)
             {
@@ -65,5 +66,10 @@ namespace AdventOfCode2020.Business
         }
 
         public abstract void Solve();
+
+        private int GetDay()
+        {
+            return int.Parse(new Regex("\\d+").Match(this.GetType().Name).Value);
+        }
     }
 }

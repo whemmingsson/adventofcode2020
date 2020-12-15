@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Solutions
         private const int PREAMBLE_LENGTH = 25;
         private readonly HashSet<long> sums = new HashSet<long>();
 
-        public Day9(bool autoSolve = true, bool time = false) : base(9, new LineParser<long>(), autoSolve, time) { }
+        public Day9(bool autoSolve = true, bool time = false) : base(new LineParser<long>(), autoSolve, time) { }
 
         public override void Solve()
         {

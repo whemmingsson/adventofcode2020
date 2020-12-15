@@ -15,7 +15,7 @@ namespace AdventOfCode2020.Solutions
 
         private List<int> SeatIds;
 
-        public Day5(bool autoSolve = true, bool time = false) : base(5, new LineParser<string>(), autoSolve, time) { }
+        public Day5(bool autoSolve = true, bool time = false) : base(new LineParser<string>(), autoSolve, time) { }
 
         public override void Solve()
         {

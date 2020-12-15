@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Solutions
     {
         private static readonly List<string> reqFields = new List<string> { "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid" };
 
-        public Day4(bool autoSolve = true, bool time = false) : base(4, new LineParser<string>(), autoSolve, time) {}
+        public Day4(bool autoSolve = true, bool time = false) : base(new LineParser<string>(), autoSolve, time) {}
 
         public override void Solve()
         {

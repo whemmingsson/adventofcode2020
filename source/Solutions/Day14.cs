@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Solutions
 
         private Dictionary<long, long> memory;
 
-        public Day14(bool autoSolve = true, bool time = false) : base(14, new LineParser<string>(), autoSolve, time) { }
+        public Day14(bool autoSolve = true, bool time = false) : base(new LineParser<string>(), autoSolve, time) { }
 
         public override void Solve()
         {

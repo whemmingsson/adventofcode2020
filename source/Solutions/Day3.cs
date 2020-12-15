@@ -15,7 +15,7 @@ namespace AdventOfCode2020.Solutions
         private int _slopeX;
         private int _slopeY;
 
-        public Day3(bool autoSolve = true, bool time = false) : base(3, new LineParser<string>(), autoSolve, time) {}
+        public Day3(bool autoSolve = true, bool time = false) : base(new LineParser<string>(), autoSolve, time) {}
 
         public override void Solve()
         {

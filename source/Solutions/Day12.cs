@@ -11,7 +11,7 @@ namespace AdventOfCode2020.Solutions
     {
         private Ferry ferry;
      
-        public Day12(bool autoSolve = true, bool time = false) : base(12, new LineParser<string>(), autoSolve, time) { }
+        public Day12(bool autoSolve = true, bool time = false) : base(new LineParser<string>(), autoSolve, time) { }
 
         public override void Solve()
         {

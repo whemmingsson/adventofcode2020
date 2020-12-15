@@ -10,7 +10,7 @@ namespace AdventOfCode2020.Solutions
     /// </summary>
     internal class Day2 : CodePuzzleSolution<string>
     {
-        public Day2(bool autoSolve = true, bool time = false) : base(2, new LineParser<string>(), autoSolve, time) { }
+        public Day2(bool autoSolve = true, bool time = false) : base(new LineParser<string>(), autoSolve, time) { }
 
         public override void Solve()
         {

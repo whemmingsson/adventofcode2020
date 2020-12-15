@@ -14,7 +14,7 @@ namespace AdventOfCode2020.Solutions
         private int columns;
         private char[,] matrix;
 
-        public Day11(bool autoSolve = true, bool time = false) : base(11, new LineParser<string>(), autoSolve, time) { }
+        public Day11(bool autoSolve = true, bool time = false) : base(new LineParser<string>(), autoSolve, time) { }
 
         public override void Solve()
         {

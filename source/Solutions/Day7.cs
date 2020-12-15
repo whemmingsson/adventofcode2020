@@ -15,7 +15,7 @@ namespace AdventOfCode2020.Solutions
 
         private const string BAG_COLOR = "shiny gold";
 
-        public Day7(bool autoSolve = true, bool time = false) : base(7, new LineParser<string>(), autoSolve, time) { }
+        public Day7(bool autoSolve = true, bool time = false) : base(new LineParser<string>(), autoSolve, time) { }
 
         public override void Solve()
         {
