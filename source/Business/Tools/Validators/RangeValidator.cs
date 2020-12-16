@@ -8,7 +8,7 @@
             return IsInRange(intValue, lowerLimit, upperLimit);
         }
 
-        private static bool IsInRange(int value, int lowerLimit, int upperLimit)
+        public static bool IsInRange(int value, int lowerLimit, int upperLimit)
         {
             return value >= lowerLimit && value <= upperLimit;
         }
